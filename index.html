@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftalık Ders Programı</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="card excel-yukleme">
+                <h3><i class="fas fa-file-excel"></i> Excel Dosyası Yükle</h3>
+                <div class="file-upload">
+                    <label class="file-upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Excel dosyası seçin veya sürükleyin
+                        <input type="file" id="excel-file" accept=".xlsx, .xls">
+                    </label>
+                </div>
+            </div>
+            <div class="card ders-listesi">
+                <h3><i class="fas fa-book"></i> Dersler</h3>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search" placeholder="Ders ara...">
+                </div>
+                <div class="filter-group">
+                    <h4><i class="fas fa-filter"></i> Bölümlere Göre Filtrele</h4>
+                    <select id="bolum-filtre">
+                        <option value="all">Tüm Bölümler</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <h4><i class="fas fa-layer-group"></i> Sınıf Seçin</h4>
+                    <select id="sinif-filtre">
+                        <option value="all">Tüm Sınıflar</option>
+                        <option value="1">1. Sınıf</option>
+                        <option value="2">2. Sınıf</option>
+                    </select>
+                </div>
+                <div id="dersler"></div>
+            </div>
+        </div>
+        <div class="haftalik-program">
+            <div class="program-header">
+                <h3><i class="fas fa-calendar-alt"></i> Haftalık Ders Programı</h3>
+                <div class="button-group">
+                    <button id="save-excel">
+                        <i class="fas fa-save"></i> Kaydet (Excel)
+                    </button>               
+                    <button onclick="loadProgram()">
+                        <i class="fas fa-folder-open"></i> Yükle
+                    </button>
+                    <button onclick="window.print()">
+                        <i class="fas fa-print"></i> Yazdır
+                    </button>
+                    <button onclick="generateShareLink()">
+                        <i class="fas fa-share-alt"></i> Paylaş
+                    </button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>08:30 - 10:00</th>
+                        <th>11:30 - 13:00</th>
+                        <th>14:30 - 16:00</th>
+                        <th>17:30 - 19:00</th>
+                        <th>20:30 - 22:00</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pazartesi</td>
+                        <td id="pazartesi-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="pazartesi-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="pazartesi-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="pazartesi-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="pazartesi-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Salı</td>
+                        <td id="sali-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="sali-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="sali-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="sali-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="sali-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Çarşamba</td>
+                        <td id="carsamba-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="carsamba-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="carsamba-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="carsamba-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="carsamba-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Perşembe</td>
+                        <td id="persembe-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="persembe-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="persembe-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="persembe-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="persembe-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Cuma</td>
+                        <td id="cuma-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cuma-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cuma-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cuma-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cuma-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                    <tr>
+                        <td>Cumartesi</td>
+                        <td id="cumartesi-slot1" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cumartesi-slot4" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cumartesi-slot7" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cumartesi-slot10" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                        <td id="cumartesi-slot13" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
